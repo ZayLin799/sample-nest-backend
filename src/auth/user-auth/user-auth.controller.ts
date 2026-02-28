@@ -49,7 +49,7 @@ export class UserAuthController {
   ) {
     const result = await this.authService.loginUser(dto);
 
-    res.cookie('game_setting_token', result.token, {
+    res.cookie('backend_token', result.token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -66,7 +66,7 @@ export class UserAuthController {
   @Post('logout')
   @ApiOperation({ summary: 'User Logout' })
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('game_setting_token');
+    res.clearCookie('backend_token');
     return {
       message: 'Logout successful',
       status: 'success',

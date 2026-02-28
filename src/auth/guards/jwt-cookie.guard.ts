@@ -9,11 +9,11 @@ import type { Request } from 'express';
 
 @Injectable()
 export class JwtCookieGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) { }
 
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
-    const token = req.cookies?.game_setting_token;
+    const token = req.cookies?.backend_token;
 
     if (!token) throw new UnauthorizedException('Authentication token missing');
 

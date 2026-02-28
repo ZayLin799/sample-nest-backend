@@ -36,7 +36,7 @@ export class AdminAuthController {
     const { identifier, password } = dto;
     const result = await this.authService.unifiedLogin(identifier, password);
 
-    res.cookie('game_setting_token', result.token, {
+    res.cookie('backend_token', result.token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -66,7 +66,7 @@ export class AdminAuthController {
     const { email, password } = dto;
     const result = await this.authService.login(email, password);
 
-    res.cookie('game_setting_token', result.token, {
+    res.cookie('backend_token', result.token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -82,7 +82,7 @@ export class AdminAuthController {
   @Post('logout')
   @ApiOperation({ summary: 'Admin Logout' })
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('game_setting_token');
+    res.clearCookie('backend_token');
     return {
       message: 'Logout successful',
       status: 'success',

@@ -8,6 +8,7 @@ import { AdminModule } from './api/admin/admin.module';
 import { RoleModule } from './api/role/role.module';
 import { UserModule } from './api/user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
     AdminModule,
     RoleModule,
     UserModule,
+    WebsocketModule,
   ],
   controllers: [AppController],
   providers: [AppService],

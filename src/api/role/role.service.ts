@@ -21,4 +21,10 @@ export class RoleService {
   async findByName(name: string): Promise<Role | null> {
     return this.prisma.role.findUnique({ where: { name } });
   }
+
+  async findAll(): Promise<Role[]> {
+    return this.prisma.role.findMany({
+      orderBy: { name: 'asc' }
+    });
+  }
 }

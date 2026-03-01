@@ -22,6 +22,16 @@ model Admin {
   password  String
   role      Role     @relation(fields: [role_id], references: [id])
   role_id   String
+  isBanned  Boolean  @default(false)
+  
+  createdById String?
+  createdBy   Admin?   @relation("AdminCreator", fields: [createdById], references: [id])
+  createdAdmins Admin[] @relation("AdminCreator")
+  
+  createdUsers User[] @relation("UserCreator")
+  updatedUsers User[] @relation("UserUpdater")
+  bannedUsers  User[] @relation("UserBanner")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -32,6 +42,16 @@ model User {
   email     String   @unique
   password  String
   isBanned  Boolean  @default(false)
+  
+  createdById String?
+  createdBy   Admin?   @relation("UserCreator", fields: [createdById], references: [id])
+
+  updatedById String?
+  updatedBy   Admin?   @relation("UserUpdater", fields: [updatedById], references: [id])
+
+  bannedById String?
+  bannedBy   Admin?   @relation("UserBanner", fields: [bannedById], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

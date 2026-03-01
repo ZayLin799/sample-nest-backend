@@ -7,6 +7,7 @@ import {
   Req,
   UseGuards,
   BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { AdminAuthService } from './admin-auth.service';
@@ -121,6 +122,10 @@ export class AdminAuthController {
   async getCurrentUser(@Req() req: Request) {
     const userId = (req as any).user.id;
     const userType = (req as any).user.userType;
+
+    if (userType !== 'admin') {
+      throw new UnauthorizedException('Not authorized to access the admin dashboard');
+    }
 
     const result = await this.authService.getCurrentUser(userId, userType);
 

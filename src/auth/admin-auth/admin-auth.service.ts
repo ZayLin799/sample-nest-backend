@@ -38,6 +38,10 @@ export class AdminAuthService {
 
     const roleName = user.role?.name || '';
 
+    if (roleName === 'user') {
+      throw new UnauthorizedException('Users are not allowed to log into the admin dashboard.');
+    }
+
     const tokenPayload: any = {
       id: user.id,
       userType: 'admin',
@@ -64,6 +68,10 @@ export class AdminAuthService {
     if (!valid) throw new UnauthorizedException('Invalid credentials');
 
     const roleName = admin.role?.name || '';
+
+    if (roleName === 'user') {
+      throw new UnauthorizedException('Users are not allowed to log into the admin dashboard.');
+    }
 
     const token = generateToken({
       id: admin.id,
